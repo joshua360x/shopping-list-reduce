@@ -1,17 +1,51 @@
-const { useReducer, createContext, useContext } = require("react");
+const { useReducer, createContext, useContext, useEffect } = require("react");
 
 
-export const shoppingContext = createContext();
+export const ShoppingContext = createContext();
 
+// add reducer function 
+function listReducer(list, { type: payload }) {
+  switch (type) {
+    case 'create':
+      const listentry = { ...payload, id: list.length }
+      return [listentry, ...list];
+      // break;
+    case 'normal':
+      return [...payload]
+      // break;
+  
+    default:
+      throw Error (`Action is Unknown: ${type}`);
+  }
+}
 
-export function ShoppingProvider({ children }) {
-  // add reducer function 
+function ShoppingProvider({ children }) {
+const [list, dispatch] = useReducer(listReducer, [])
+
+useEffect(() => {
+  const list = [
+    {
+      id: 0,
+      name: 'eggs',
+      quantity: 4
+    }
+  ]
+  dispatch({type: 'normal', payload: list})
+}, [])
+
+function addToShoppingList(listItem) {
+  const payload = {
+    ...listItem
+  }
+  dispatch({type: 'create', payload})
+  return payload;
+}
 
 
   return (
-    <shoppingContext.Provider>
+    <ShoppingContext.Provider value={{list, addToShoppingList}}>
       { children }
-    </shoppingContext.Provider>
+    </ShoppingContext.Provider>
   )
 
 }
