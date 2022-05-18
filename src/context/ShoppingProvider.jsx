@@ -1,10 +1,10 @@
-const { useReducer, createContext, useContext, useEffect } = require("react");
+import { useReducer, createContext, useContext, useEffect } from 'react'
 
 
 export const ShoppingContext = createContext();
 
 // add reducer function 
-function listReducer(list, { type: payload }) {
+function listReducer(list, { type, payload }) {
   switch (type) {
     case 'create':
       const listentry = { ...payload, id: list.length }
@@ -51,7 +51,7 @@ function addToShoppingList(listItem) {
 }
 
 const useData = () => {
-  const context = useContext(shoppingContext);
+  const context = useContext(ShoppingContext);
 
   if (context === undefined) {
     throw new Error('useData must be used within a Shopping Provider');

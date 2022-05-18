@@ -1,3 +1,13 @@
+import { ShoppingProvider } from "./context/ShoppingProvider";
+import ShoppingList from "./views/ShoppingList";
+
 export default function App() {
-  return <h1>Hello World</h1>;
+
+  return <>
+  <ShoppingProvider>
+
+<h2>Welcome to the List</h2>
+  <ShoppingList />
+  </ShoppingProvider>
+  </>;
 }
