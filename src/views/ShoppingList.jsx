@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useData } from '../context/ShoppingProvider'
 
 export default function ShoppingList() {
+  const [isEditing, setIsEditing] = useState(false)
   const { list, deleteFromShoppingList } = useData();
   return (
     <div>

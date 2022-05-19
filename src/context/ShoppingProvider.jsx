@@ -10,6 +10,12 @@ function listReducer(list, { type, payload }) {
       const listentry = { ...payload, id: list.length }
       return [listentry, ...list];
 
+      // on update
+    case 'update':
+      return list.map((listitem) => (
+        listitem.id === payload.id ? payload : listitem
+      ));
+
       // on delete
     case 'delete':
       return list.filter((listItem) => listItem.id !== payload.id);
@@ -46,6 +52,14 @@ function addToShoppingList(listItem) {
   return payload;
 }
 
+function editItemInhoppingList(listItem) {
+  const payload = {
+    ...listItem
+  }
+  dispatch({type: 'update', payload})
+  // return payload;
+}
+
 function deleteFromShoppingList(id) {
   // let newList = list.splice(0, 1)
   // const payload = {
@@ -57,7 +71,7 @@ function deleteFromShoppingList(id) {
 
 
   return (
-    <ShoppingContext.Provider value={{list, addToShoppingList, deleteFromShoppingList}}>
+    <ShoppingContext.Provider value={{list, addToShoppingList, deleteFromShoppingList, editItemInhoppingList}}>
       { children }
     </ShoppingContext.Provider>
   )
