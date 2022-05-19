@@ -9,10 +9,15 @@ function listReducer(list, { type, payload }) {
     case 'create':
       const listentry = { ...payload, id: list.length }
       return [listentry, ...list];
-      // break;
+
+      // on delete
+    case 'delete':
+      return list.filter((listItem) => listItem.id !== payload.id);
+
+      // on refresh of page
     case 'normal':
       return [...payload]
-      // break;
+
   
     default:
       throw Error (`Action is Unknown: ${type}`);
@@ -41,9 +46,18 @@ function addToShoppingList(listItem) {
   return payload;
 }
 
+function deleteFromShoppingList(id) {
+  // let newList = list.splice(0, 1)
+  // const payload = {
+  //   ...listItem
+  // }
+  dispatch({type: 'delete', payload: { id }})
+  // return payload;
+}
+
 
   return (
-    <ShoppingContext.Provider value={{list, addToShoppingList}}>
+    <ShoppingContext.Provider value={{list, addToShoppingList, deleteFromShoppingList}}>
       { children }
     </ShoppingContext.Provider>
   )
