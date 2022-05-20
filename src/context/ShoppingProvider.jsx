@@ -52,7 +52,7 @@ function addToShoppingList(listItem) {
   return payload;
 }
 
-function editItemInhoppingList(listItem) {
+function editItemInShoppingList(listItem) {
   const payload = {
     ...listItem
   }
@@ -71,7 +71,7 @@ function deleteFromShoppingList(id) {
 
 
   return (
-    <ShoppingContext.Provider value={{list, addToShoppingList, deleteFromShoppingList, editItemInhoppingList}}>
+    <ShoppingContext.Provider value={{list, addToShoppingList, deleteFromShoppingList, editItemInShoppingList}}>
       { children }
     </ShoppingContext.Provider>
   )
